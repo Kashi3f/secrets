@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Our Little Secret - Announcement</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#65000b",
+                        "on-secondary-container": "#664d34",
+                        "primary-container": "#b6e7d8",
+                        "on-surface-variant": "#5d605c",
+                        "on-tertiary-fixed-variant": "#6e5925",
+                        "inverse-on-surface": "#9d9d9a",
+                        "secondary": "#755a40",
+                        "outline": "#797b78",
+                        "primary": "#3a675b",
+                        "surface": "#faf9f6",
+                        "on-surface": "#303330",
+                        "surface-container-highest": "#e1e3df",
+                        "inverse-primary": "#bff0e0",
+                        "on-secondary-fixed": "#523b23",
+                        "secondary-dim": "#684e35",
+                        "on-primary-fixed-variant": "#336054",
+                        "tertiary-fixed": "#fddf9e",
+                        "tertiary-dim": "#65501d",
+                        "secondary-fixed-dim": "#f2cead",
+                        "secondary-fixed": "#ffdcbe",
+                        "surface-variant": "#e1e3df",
+                        "error-container": "#f56965",
+                        "surface-container": "#eeeeea",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#a9d9ca",
+                        "on-error": "#fff7f6",
+                        "on-tertiary-container": "#634f1c",
+                        "tertiary-container": "#fddf9e",
+                        "surface-bright": "#faf9f6",
+                        "primary-dim": "#2e5b4f",
+                        "surface-container-high": "#e8e8e4",
+                        "primary-fixed": "#b6e7d8",
+                        "surface-tint": "#3a675b",
+                        "inverse-surface": "#0d0f0d",
+                        "on-secondary-fixed-variant": "#71563d",
+                        "on-tertiary": "#fff8f0",
+                        "surface-container-low": "#f4f4f0",
+                        "on-background": "#303330",
+                        "on-primary": "#e4fff5",
+                        "error": "#ac3434",
+                        "error-dim": "#70030f",
+                        "tertiary-fixed-dim": "#efd191",
+                        "background": "#faf9f6",
+                        "surface-dim": "#d9dbd6",
+                        "secondary-container": "#ffdcbe",
+                        "on-tertiary-fixed": "#4f3d0a",
+                        "on-primary-container": "#28564b",
+                        "on-secondary": "#fff7f4",
+                        "tertiary": "#725c28",
+                        "outline-variant": "#b1b2af",
+                        "on-primary-fixed": "#134338"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "9999px",
+                        "lg": "9999px",
+                        "xl": "9999px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .grain-texture {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+        .perspective-1200 {
+            perspective: 1200px;
+        }
+        .floating-card {
+            box-shadow: 0 12px 32px rgba(48, 51, 48, 0.05);
+        }
+        .clip-path-envelope-top {
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+        .clip-path-envelope-bottom {
+            clip-path: polygon(0 100%, 100% 100%, 50% 0);
+        }
+        .clip-path-envelope-left {
+            clip-path: polygon(0 0, 0 100%, 100% 50%);
+        }
+        .clip-path-envelope-right {
+            clip-path: polygon(100% 0, 100% 100%, 0 50%);
+        }
+        .origin-top {
+            transform-origin: top;
+        }
+        
+        /* State-based animations */
+        .envelope-wrapper.is-open .top-flap {
+            transform: rotateX(160deg);
+            z-index: 5;
+        }
+        .envelope-wrapper.is-open .announcement-card {
+            transform: translate(-50%, -85%) scale(1.1);
+            z-index: 45;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+        .envelope-wrapper.is-open .cta-text {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .envelope-wrapper.is-open .close-hint {
+            opacity: 1;
+        }
+
+        /* Header transition */
+        .header-transition {
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        body.is-revealing .header-section {
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+        .confetti {
+            position: fixed;
+            top: -10px;
+            width: 10px;
+            height: 10px;
+            z-index: 60;
+            animation: confetti-fall 4s linear forwards;
+            pointer-events: none;
+        }
+        
+        .transition-card {
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col transition-colors duration-700">
+<div class="fixed inset-0 grain-texture z-[100]"></div>
+<!-- Header -->
+<nav class="fixed top-0 w-full z-50">
+<div class="flex justify-center items-center w-full px-8 py-8 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-headline italic text-primary">Our Little Secret</div>
+</div>
+</nav>
+<main class="flex-grow flex flex-col items-center justify-center relative px-4 pt-48 pb-64">
+<!-- Hero Decorative Elements -->
+<div class="absolute top-1/4 left-10 opacity-10 hidden lg:block pointer-events-none">
+<img alt="" class="w-48 h-48 rounded-full rotate-[-6deg] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClOyhsDx_bZsc49OPT7tGgJYEXsn5a1eWgsRy4CFwiFRkEcqz62jLWIMwNjXOdax1mwUBCJTpVISDF242VuEmbvAuvK3CbS4mJPClX5UqCk_3ouB5V62ZYiHDYP8QDyZO7KnLCzIeQ6B52Hlaq_6cd5AEJnwqmqndrPWF6Vl9ph7dvucEnTwRLUI1G0KE8rPF_CAkvJ_GcpFzrwZBhImle4mhxSKZJFdMW3gcry2eRqNNr5DATbNpNn9Y0a_cPside72xOq0wZIVnL"/>
+</div>
+<div class="absolute bottom-1/4 right-10 opacity-10 hidden lg:block pointer-events-none">
+<img alt="" class="w-56 h-72 rounded-full rotate-[4deg] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDJj7NQ4whUmkZ8-rIA6Q3KP27M4v9DAIKQCAOsNBsIIEfifC5avcupBqgug6LrIXYgipWJB4ZK6MdvUjkGgbdHRlY2MX8R7I46bNnpDaW5hANNVUUMALsXY7mNlYUXFoDxrIV4Tla9o7qRpcR0o7Exmq1Y1js6I-rmJd2SESFBS7hnpN1jv9KCnYL2pe88dTHx5lB9TlBrPiVsneJOp4qrOqzkb-VneFk_8178syJWu5fA67Z8rjB-EPYRrujRhNHqzjM6gaHBgId"/>
+</div>
+<div class="header-section header-transition text-center mb-24 max-w-2xl z-10">
+<p class="font-label text-[10px] tracking-[0.2em] uppercase text-tertiary mb-6">A NEW ADVENTURE BEGINS</p>
+<h1 class="font-headline text-5xl md:text-7xl tracking-tight text-on-surface leading-tight">Something special is <br/><span class="italic text-primary font-normal">blossoming.</span></h1>
+</div>
+<!-- The Interactive Envelope Experience -->
+<div class="envelope-wrapper relative w-full max-w-lg aspect-[4/3] flex items-center justify-center cursor-pointer perspective-1200" id="envelopeContainer" onclick="toggleEnvelope()">
+<!-- Main Envelope Container -->
+<div class="relative w-[340px] h-[240px] md:w-[460px] md:h-[320px] bg-surface-container-low rounded-xl floating-card transition-all duration-700">
+<!-- Announcement Card (Revealed Message) -->
+<div class="announcement-card transition-card absolute top-4 left-1/2 -translate-x-1/2 w-[90%] h-[90%] bg-surface-container-lowest rounded-xl floating-card z-10 flex flex-col items-center justify-center p-10 text-center border border-primary-container/30">
+<div class="mb-6">
+<span class="material-symbols-outlined text-primary text-5xl opacity-80">child_care</span>
+</div>
+<h2 class="font-headline text-4xl md:text-5xl text-primary mb-3">We're having a baby!</h2>
+<p class="font-label text-on-surface-variant text-xs tracking-[0.2em] uppercase">A NEW SAULS JOINS OUR FAMILY</p>
+<div class="mt-8 flex items-center gap-3">
+<div class="h-px w-10 bg-outline-variant/40"></div>
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<div class="h-px w-10 bg-outline-variant/40"></div>
+</div>
+<p class="mt-12 text-[10px] font-label tracking-widest text-secondary uppercase opacity-0 close-hint transition-opacity duration-300">A NEW SAULS JOINS OUR FAMILY</p>
+</div>
+<!-- Envelope Body Parts -->
+<!-- Bottom Fold -->
+<div class="absolute bottom-0 left-0 w-full h-[60%] bg-surface-container-high rounded-b-xl clip-path-envelope-bottom z-30"></div>
+<!-- Left Fold -->
+<div class="absolute left-0 top-0 h-full w-[60%] bg-surface-container-highest rounded-l-xl clip-path-envelope-left z-30"></div>
+<!-- Right Fold -->
+<div class="absolute right-0 top-0 h-full w-[60%] bg-surface-container-highest rounded-r-xl clip-path-envelope-right z-30"></div>
+<!-- Top Flap -->
+<div class="top-flap absolute top-0 left-0 w-full h-[60%] bg-surface-container-low rounded-t-xl origin-top transition-transform duration-700 z-40 clip-path-envelope-top shadow-md">
+<div class="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+<div class="w-14 h-14 bg-secondary-container rounded-full flex items-center justify-center shadow-lg border-2 border-white/50">
+<span class="material-symbols-outlined text-on-secondary-container text-2xl" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+</div>
+<!-- Call to Action Text -->
+<div class="cta-text absolute inset-0 z-50 flex items-end justify-center pb-12 transition-opacity duration-500">
+<div class="bg-primary text-on-primary px-10 py-4 rounded-full font-label text-[10px] tracking-[0.2em] uppercase shadow-2xl backdrop-blur-md hover:scale-105 transition-transform flex items-center gap-2">
+<span>Open Secret</span>
+<span class="material-symbols-outlined text-xs">arrow_upward</span>
+</div>
+</div>
+</div>
+<!-- Enhanced Decorative Sparkles -->
+<div class="absolute inset-0 opacity-0 transition-opacity duration-1000 delay-300 pointer-events-none" id="openSparkles">
+<span class="absolute -top-32 -left-20 material-symbols-outlined text-tertiary-fixed text-6xl animate-pulse" style="font-variation-settings: 'FILL' 1;">colors_spark</span>
+<span class="absolute -top-40 right-10 material-symbols-outlined text-primary-container text-4xl" style="font-variation-settings: 'FILL' 1;">celebration</span>
+<span class="absolute top-10 -right-28 material-symbols-outlined text-secondary-fixed-dim text-3xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="absolute -bottom-20 -left-10 material-symbols-outlined text-tertiary-dim text-2xl" style="font-variation-settings: 'FILL' 1;">star_half</span>
+<span class="absolute bottom-40 -left-24 material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">magic_button</span>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-16 bg-transparent mt-auto">
+<div class="flex flex-col items-center justify-center space-y-6 w-full">
+<div class="font-label text-[9px] tracking-[0.3em] uppercase text-stone-400">
+                Handcrafted with Love
+            </div>
+<div class="h-px w-8 bg-stone-200"></div>
+<div class="opacity-30">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+</footer>
+<script>
+        let isOpened = false;
+
+        function createConfetti() {
+            const colors = ['#A2D2C3', '#fddf9e', '#ffdcbe', '#b6e7d8', '#755a40', '#3a675b', '#efd191', '#ffffff'];
+            // Increased confetti amount for "abundant" feel
+            for (let i = 0; i < 250; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                const size = Math.random() * 12 + 6;
+                confetti.style.width = size + 'px';
+                confetti.style.height = size + 'px';
+                
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                confetti.style.animationDelay = Math.random() * 2.5 + 's';
+                confetti.style.animationDuration = Math.random() * 2.5 + 3.5 + 's';
+                document.body.appendChild(confetti);
+                
+                // Cleanup
+                setTimeout(() => confetti.remove(), 7000);
+            }
+        }
+
+        function toggleEnvelope() {
+            const container = document.getElementById('envelopeContainer');
+            const sparkles = document.getElementById('openSparkles');
+            const body = document.body;
+            
+            if (!isOpened) {
+                container.classList.add('is-open');
+                body.classList.add('is-revealing');
+                sparkles.classList.remove('opacity-0');
+                sparkles.classList.add('opacity-100');
+                createConfetti();
+                isOpened = true;
+            } else {
+                container.classList.remove('is-open');
+                body.classList.remove('is-revealing');
+                sparkles.classList.add('opacity-0');
+                sparkles.classList.remove('opacity-100');
+                isOpened = false;
+            }
+        }
+    </script>
+</body></html>
